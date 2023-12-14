@@ -1,7 +1,8 @@
 
+# This imports a csv file
 import csv
 
-# Function to create and stock the shop from a CSV file
+# Function that is creating and stocking the shop from a CSV file.
 def create_and_stock_shop(filename='stock.csv'):
     shop = {'cash': 0.0, 'products': []}
     with open(filename) as csv_file:
@@ -16,7 +17,7 @@ def create_and_stock_shop(filename='stock.csv'):
             })
     return shop
 
-# Function to read customer data from a CSV file
+# Function that reads customer data from a CSV file.
 def read_customer(filename):
     customer = {'name': '', 'cash': 0.0, 'products': []}
     with open(filename) as csv_file:
@@ -31,22 +32,22 @@ def read_customer(filename):
             })
     return customer
 
-# Function to print product details
+# Function that prints product details.
 def print_product(product):
     print(f'NAME: {product["name"]}, PRICE: {product["price"]}, QUANTITY: {product["quantity"]}')
 
-# Function to print customer details
+# Function that prints customer details.
 def print_customer(customer):
     print(f'NAME: {customer["name"]}, CASH: {customer["cash"]}')
     for product in customer["products"]:
         print(f'NAME: {product["name"]}, QUANTITY: {product["quantity"]}')
 
-# Function to process an order
+# Function that processes an order.
 def process_order(shop, customer):
     total_cost = 0
     order_items = []
 
-    # Calculate total cost of the order and prepare order items
+    # Calculating total cost of the order and prossesing order items.
     for c_product in customer["products"]:
         for s_product in shop["products"]:
             if c_product["name"] == s_product["name"]:
@@ -57,9 +58,9 @@ def process_order(shop, customer):
                     print(f"Not enough stock for {c_product['name']}")
                 break
 
-    # Check if customer has enough cash
+    # Checking if customer has enough cash for the items.
     if customer["cash"] >= total_cost:
-        # Process the order
+        # Processing the order.
         for c_product in order_items:
             for s_product in shop["products"]:
                 if c_product["name"] == s_product["name"]:
@@ -71,7 +72,7 @@ def process_order(shop, customer):
     else:
         print(f"Customer {customer['name']} does not have enough cash for this order. Order not processed.")
 
-# Function to read user input for live mode
+# Function that is reading user input for live mode.
 def read_user_input():
     product_name = input("Enter product name: ").strip()
     if product_name.lower() == "exit":
@@ -79,13 +80,13 @@ def read_user_input():
     quantity = int(input("Enter quantity: "))
     return {"name": product_name, "quantity": quantity}
 
-# Function to operate in live mode
+# Function that operates in live mode
 def operate_live_mode(shop):
     while True:
         customer_input = read_user_input()
         if customer_input is None:
             break
-# PUT A COMMENT HERE
+# Prints the customer order
         customer = {"name": "Live Customer", "cash": float("inf"), "products": [customer_input]}
         print("Customer order:")
         print_customer(customer)
@@ -98,7 +99,7 @@ print(f"Initial Cash: {shop['cash']}")
 for product in shop["products"]:
     print_product(product)
 
-# PUT A COMMENT HERE
+# Prints customer order from the csv files
 customer_files = ['customer.csv', 'customertest.csv', 'customertest2.csv']
 for filename in customer_files:
     customer = read_customer(filename)
@@ -106,7 +107,7 @@ for filename in customer_files:
     print_customer(customer)
     process_order(shop, customer)
 
-# PUT A COMMENT HERE
+# Prints text to screen
 print("\nEntering Live Mode:")
 print("\nWelcome to my live shop")
 print("\nI hope you enjoy your experience")
